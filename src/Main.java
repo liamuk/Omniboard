@@ -35,20 +35,24 @@ public class Main extends WiiMoteAdapter {
 
 	public static void main(String[] args) {
 		Main app = new Main();
+		Wiimote[] wiimotes = WiiUseApiManager.getWiimotes(1, true);
+		if (wiimotes.length > 0) {
+			Wiimote wiimote = wiimotes[0];
+			wiimote.activateIRTRacking();
+			wiimote.addWiiMoteEventListeners(app);
 
-		Wiimote wiimote = WiiUseApiManager.getWiimotes(1, true)[0];
-		wiimote.activateIRTRacking();
-		wiimote.addWiiMoteEventListeners(app);
-
-		// Wiimote[] wiimotes = WiiUseApiManager.getWiimotes(1, true);
-		// WiiuseJGuiTest gui = null;
-		// if (wiimotes.length > 0) {
-		// gui = new WiiuseJGuiTest(wiimotes[0]);
-		// } else {
-		// gui = new WiiuseJGuiTest();
-		// }
-		// gui.setDefaultCloseOperation(3);
-		// gui.setVisible(true);
+			// Wiimote[] wiimotes = WiiUseApiManager.getWiimotes(1, true);
+			// WiiuseJGuiTest gui = null;
+			// if (wiimotes.length > 0) {
+			// gui = new WiiuseJGuiTest(wiimotes[0]);
+			// } else {
+			// gui = new WiiuseJGuiTest();
+			// }
+			// gui.setDefaultCloseOperation(3);
+			// gui.setVisible(true);
+		} else {
+			System.err.println("Failed to detect wiimote.");
+		}
 	}
 
 	private boolean calibrating = true;
@@ -87,15 +91,15 @@ public class Main extends WiiMoteAdapter {
 
 		new Thread() {
 			public void run() {
-				while (true) {
-					if (System.currentTimeMillis() - lastIREvent > RELEASE_DELAY)
-						robot.mouseRelease(InputEvent.BUTTON1_MASK);
-
-					try {
+				try {
+					while (true) {
+						if (System.currentTimeMillis() - lastIREvent > RELEASE_DELAY) {
+							robot.mouseRelease(InputEvent.BUTTON1_MASK);
+						}
 						Thread.sleep(100);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
 					}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
 			}
 		}.start();
@@ -124,7 +128,8 @@ public class Main extends WiiMoteAdapter {
 				controllingMouse = true;
 				target.setVisible(false);
 			} else {
-				target.setLocation(Utils.pointDoubleToInt(calibrationPoints[count]));
+				target.setLocation(Utils
+						.pointDoubleToInt(calibrationPoints[count]));
 			}
 		} else if (controllingMouse) {
 			lastIREvent = System.currentTimeMillis();

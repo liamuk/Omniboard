@@ -2,7 +2,7 @@ import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 
-import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
+//import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 public class Utils {
 	public static Point2D.Double intersect(Point2D.Double a, Point2D.Double b, Point2D.Double c, Point2D.Double d){
@@ -50,9 +50,9 @@ public class Utils {
 			(outputRef[3].y - outputRef[0].y)*relativeY);
 	}
 	
-	private static Vector2D perpendicular(Vector2D v) {
-		return new Vector2D(-v.getY(), v.getX());
-	}
+//	private static Vector2D perpendicular(Vector2D v) {
+//		return new Vector2D(-v.getY(), v.getX());
+//	}
 	
 //	private static Double length(Vector2D v) {
 //		return Math.sqrt(v.getX() * v.getX() + v.getY() * v.getY());
