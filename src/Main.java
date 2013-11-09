@@ -1,11 +1,8 @@
 import java.awt.AWTException;
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.RenderingHints;
 import java.awt.Robot;
 import java.awt.Stroke;
 import java.awt.Toolkit;
@@ -46,27 +43,21 @@ public class Main extends WiiMoteAdapter {
 
 	public static void main(String[] args) {
 		Main app = new Main();
-
-		Wiimote wiimote = WiiUseApiManager.getWiimotes(1, true)[0];
-		wiimote.activateIRTRacking();
-		wiimote.addWiiMoteEventListeners(app);
-
-		// Wiimote[] wiimotes = WiiUseApiManager.getWiimotes(1, true);
-		// WiiuseJGuiTest gui = null;
-		// if (wiimotes.length > 0) {
-		// gui = new WiiuseJGuiTest(wiimotes[0]);
-		// } else {
-		// gui = new WiiuseJGuiTest();
-		// }
-		// gui.setDefaultCloseOperation(3);
-		// gui.setVisible(true);
+		Wiimote[] wiimotes = WiiUseApiManager.getWiimotes(1, true);
+		if (wiimotes.length > 0) {
+			Wiimote wiimote = wiimotes[0];
+			wiimote.activateIRTRacking();
+			wiimote.addWiiMoteEventListeners(app);
+		} else {
+			System.err.println("Failed to detect wiimote.");
+		}
 	}
 
 	private boolean calibrating = true;
 	private int count = 0;
 	private JFrame target;
 	private static final int TARGET_SIZE = 64;
-	private static final Stroke STROKE = new BasicStroke(4);
+//	private static final Stroke STROKE = new BasicStroke(4);
 	private Point2D.Double[] calibrationPoints = {
 		new Point2D.Double(TARGET_OFFSET, TARGET_OFFSET),
 		new Point2D.Double(SCREEN_RESOLUTION.width - TARGET_OFFSET, TARGET_OFFSET),
@@ -81,6 +72,7 @@ public class Main extends WiiMoteAdapter {
 	private long lastIREvent = System.currentTimeMillis();
 	private static final long RELEASE_DELAY = 500;
 
+	@SuppressWarnings("serial")
 	public Main() {
 		target = new JFrame() {
 			@Override
@@ -98,7 +90,7 @@ public class Main extends WiiMoteAdapter {
 		};
 		
 		target.setUndecorated(true);
-		 target.setAlwaysOnTop(true);
+		target.setAlwaysOnTop(true);
 		target.setSize(TARGET_SIZE, TARGET_SIZE);
 
 //		target.add(new JLabel(targetIcon));
@@ -111,11 +103,16 @@ public class Main extends WiiMoteAdapter {
 				while(true) {
 					if(System.currentTimeMillis() - lastIREvent > RELEASE_DELAY)
 						robot.mouseRelease(InputEvent.BUTTON1_MASK);
-
-					try {
-						Thread.sleep(100);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
+					
+					while (true) {
+						if (System.currentTimeMillis() - lastIREvent > RELEASE_DELAY)
+							robot.mouseRelease(InputEvent.BUTTON1_MASK);
+						
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			}
@@ -128,7 +125,6 @@ public class Main extends WiiMoteAdapter {
 			WiiUseApiManager.shutdown();
 			System.exit(0);
 		}
-
 	}
 
 	@Override
@@ -161,13 +157,5 @@ public class Main extends WiiMoteAdapter {
 			robot.mouseMove(screenCoord.x, screenCoord.y);
 			robot.mousePress(InputEvent.BUTTON1_MASK);
 		}
-
-		// @Override
-		// public void onButtonsEvent(WiimoteButtonsEvent wbe) {
-		// if(wbe.isButtonHomeHeld()) {
-		// WiiUseApiManager.getInstance().shutdown();
-		// System.exit(0);
-		// }
-		// }
 	}
 }
