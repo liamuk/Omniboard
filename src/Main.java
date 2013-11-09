@@ -5,7 +5,6 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.event.InputEvent;
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -16,7 +15,6 @@ import wiiusej.WiiUseApiManager;
 import wiiusej.Wiimote;
 import wiiusej.values.IRSource;
 import wiiusej.wiiusejevents.physicalevents.IREvent;
-import wiiusej.wiiusejevents.physicalevents.WiimoteButtonsEvent;
 
 public class Main extends WiiMoteAdapter {
 	private static Robot robot;
