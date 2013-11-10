@@ -12,81 +12,53 @@ import wiiusej.wiiusejevents.wiiuseapievents.NunchukInsertedEvent;
 import wiiusej.wiiusejevents.wiiuseapievents.NunchukRemovedEvent;
 import wiiusej.wiiusejevents.wiiuseapievents.StatusEvent;
 
-
 public abstract class WiiMoteAdapter implements WiimoteListener {
 
 	@Override
 	public void onButtonsEvent(WiimoteButtonsEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void onClassicControllerInsertedEvent(
-			ClassicControllerInsertedEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void onClassicControllerInsertedEvent(ClassicControllerInsertedEvent arg0) {
 	}
 
 	@Override
-	public void onClassicControllerRemovedEvent(
-			ClassicControllerRemovedEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void onClassicControllerRemovedEvent(ClassicControllerRemovedEvent arg0) {
 	}
 
 	@Override
 	public void onDisconnectionEvent(DisconnectionEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void onExpansionEvent(ExpansionEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void onGuitarHeroInsertedEvent(GuitarHeroInsertedEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void onGuitarHeroRemovedEvent(GuitarHeroRemovedEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void onIrEvent(IREvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void onMotionSensingEvent(MotionSensingEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void onNunchukInsertedEvent(NunchukInsertedEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void onNunchukRemovedEvent(NunchukRemovedEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void onStatusEvent(StatusEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
-
 }
