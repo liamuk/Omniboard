@@ -1,10 +1,8 @@
 import java.awt.AWTException;
-import java.awt.BasicStroke;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Robot;
-import java.awt.Stroke;
 import java.awt.Toolkit;
 import java.awt.event.InputEvent;
 import java.awt.geom.Point2D;
@@ -70,7 +68,9 @@ public class Main extends WiiMoteAdapter {
 	private boolean controllingMouse = false;
 
 	private long lastIREvent = System.currentTimeMillis();
-	private static final long RELEASE_DELAY = 500;
+	private static final long RELEASE_DELAY = 50;
+	
+	private OverlayFrame overlay = new OverlayFrame();
 
 	@SuppressWarnings("serial")
 	public Main() {
@@ -124,13 +124,18 @@ public class Main extends WiiMoteAdapter {
 		if(wbe.isButtonAPressed()) {
 			WiiUseApiManager.shutdown();
 			System.exit(0);
+		} else if(wbe.isButtonPlusJustPressed()) {
+			overlay.setVisible(!overlay.isVisible());
 		}
 	}
 
 	@Override
 	public void onIrEvent(IREvent ire) {
 		System.out.println("New IREvent: " + ire);
-
+		
+		if(ire.getIRPoints().length == 0)
+			return;
+		
 		IRSource point = ire.getIRPoints()[0];
 		System.out.println("Point " + count + ": " + point);
 
