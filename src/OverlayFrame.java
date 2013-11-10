@@ -39,6 +39,10 @@ public class OverlayFrame extends JFrame implements MouseListener, MouseMotionLi
 		this.addMouseMotionListener(this);
 	}
 	
+	public void clear() {
+		lines = new LinkedList<LinkedList<Point>>();
+	}
+	
 	@Override
 	public void paint(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
